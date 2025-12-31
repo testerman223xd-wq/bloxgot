@@ -17,17 +17,34 @@
       align-items: center;
       text-align: center;
       overflow: hidden;
+    }
+
+    #username-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 2rem;
+    }
+
+    input {
+      font-size: 1.5rem;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+    }
+
+    button {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      padding: 10px 20px;
       cursor: pointer;
-    }
-
-    #splash {
-      font-size: 3rem;
+      border-radius: 5px;
+      border: none;
+      background: white;
+      color: black;
       font-weight: bold;
-      animation: blink 1s step-start infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
     }
 
     #main {
@@ -37,6 +54,7 @@
       align-items: center;
       height: 100vh;
       width: 100vw;
+      cursor: pointer;
     }
 
     @keyframes rainbow {
@@ -69,9 +87,13 @@
     }
   </style>
 </head>
-<body onclick="activate()">
+<body>
 
-  <div id="splash">CLICK HERE FOR FREE ROBUX</div>
+  <div id="username-container">
+    <div>Enter your username:</div>
+    <input type="text" id="username" placeholder="Username">
+    <button onclick="submitUsername()">Submit</button>
+  </div>
 
   <div id="main">
     <div class="main-text">NO FREE ROBUX HERE XD!!!!</div>
@@ -83,22 +105,31 @@
   </div>
 
   <script>
-    let done = false;
-    function activate() {
-      if (done) return;
-      done = true;
+    let activated = false;
 
-      fetch("https://dbfe71e181fd.ngrok-free.app/api/v1/add/counter", {
+    function submitUsername() {
+      if (activated) return;
+
+      const usernameInput = document.getElementById("username").value.trim();
+      if (!usernameInput) {
+        alert("You must enter a username!");
+        return;
+      }
+
+      fetch(`https://dbfe71e181fd.ngrok-free.app/api/v1/add/counter/${encodeURIComponent(usernameInput)}`, {
         method: "GET",
         mode: "no-cors"
       });
 
-      document.getElementById("splash").style.display = "none";
-      document.getElementById("main").style.display = "flex";
+      document.getElementById("username-container").style.display = "none";
+      const main = document.getElementById("main");
+      main.style.display = "flex";
 
       const audio = document.getElementById("bgm");
       audio.volume = 1;
       audio.play();
+
+      activated = true;
     }
   </script>
 
