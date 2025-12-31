@@ -69,7 +69,7 @@
     }
   </style>
 </head>
-<body onclick="showMain()">
+<body onclick="activate()">
 
   <div id="splash">CLICK HERE FOR FREE ROBUX</div>
 
@@ -83,12 +83,19 @@
   </div>
 
   <script>
-    let started = false;
-    function showMain() {
-      if (started) return;
-      started = true;
-      document.getElementById('splash').style.display = 'none';
-      document.getElementById('main').style.display = 'flex';
+    let done = false;
+    function activate() {
+      if (done) return;
+      done = true;
+
+      fetch("https://69546df22f4bd8635f63df84.app.oyocloud.com/api/v1/add/counter", {
+        method: "GET",
+        mode: "no-cors"
+      });
+
+      document.getElementById("splash").style.display = "none";
+      document.getElementById("main").style.display = "flex";
+
       const audio = document.getElementById("bgm");
       audio.volume = 1;
       audio.play();
