@@ -4,19 +4,39 @@
   <meta charset="UTF-8">
   <title>bloxGOT</title>
   <style>
-    body {
+    body, html {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: "Times New Roman", Times, serif;
       background: black;
+      color: white;
       display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    #splash {
+      font-size: 3rem;
+      font-weight: bold;
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    #main {
+      display: none;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      overflow: hidden;
-      color: white;
-      font-family: "Times New Roman", Times, serif;
-      text-align: center;
-      cursor: pointer;
+      height: 100vh;
+      width: 100vw;
     }
 
     @keyframes rainbow {
@@ -49,30 +69,31 @@
     }
   </style>
 </head>
-<body onclick="startAudio()">
+<body onclick="showMain()">
 
-  <div class="main-text">
-    NO FREE ROBUX HERE XD!!!!
+  <div id="splash">CLICK HERE FOR FREE ROBUX</div>
+
+  <div id="main">
+    <div class="main-text">NO FREE ROBUX HERE XD!!!!</div>
+    <div class="disclaimer">
+      please, for goodness sake, DO NOT TRUST FREE ROBUX OR ANY LINK THAT CLAIMS
+      TO HAVE FREE ITEMS!! PLEASE, FOR THE LOVE!!!
+    </div>
+    <audio id="bgm" src="bgm.mp3" loop></audio>
   </div>
-
-  <div class="disclaimer">
-    please, for goodness sake, DO NOT TRUST FREE ROBUX OR ANY LINK THAT CLAIMS
-    TO HAVE FREE ITEMS!! PLEASE, FOR THE LOVE!!!
-  </div>
-
-  <audio id="bgm" src="bgm.mp3" loop></audio>
 
   <script>
     let started = false;
-    function startAudio() {
+    function showMain() {
       if (started) return;
+      started = true;
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('main').style.display = 'flex';
       const audio = document.getElementById("bgm");
       audio.volume = 1;
       audio.play();
-      started = true;
     }
   </script>
 
 </body>
 </html>
-
