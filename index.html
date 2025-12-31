@@ -16,6 +16,7 @@
       color: white;
       font-family: "Times New Roman", Times, serif;
       text-align: center;
+      cursor: pointer;
     }
 
     @keyframes rainbow {
@@ -48,7 +49,7 @@
     }
   </style>
 </head>
-<body>
+<body onclick="startAudio()">
 
   <div class="main-text">
     NO FREE ROBUX HERE XD!!!!
@@ -59,27 +60,19 @@
     TO HAVE FREE ITEMS!! PLEASE, FOR THE LOVE!!!
   </div>
 
-  <audio id="bgm" src="bgm.mp3" loop autoplay muted></audio>
+  <audio id="bgm" src="bgm.mp3" loop></audio>
 
   <script>
-    const audio = document.getElementById("bgm");
-    audio.play();
-
-    function enableSound() {
-      audio.muted = false;
+    let started = false;
+    function startAudio() {
+      if (started) return;
+      const audio = document.getElementById("bgm");
       audio.volume = 1;
       audio.play();
-      window.removeEventListener("click", enableSound);
-      window.removeEventListener("keydown", enableSound);
-      window.removeEventListener("mousemove", enableSound);
-      window.removeEventListener("touchstart", enableSound);
+      started = true;
     }
-
-    window.addEventListener("click", enableSound);
-    window.addEventListener("keydown", enableSound);
-    window.addEventListener("mousemove", enableSound);
-    window.addEventListener("touchstart", enableSound);
   </script>
 
 </body>
 </html>
+
